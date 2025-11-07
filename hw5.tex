@@ -2,7 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 
-\usepackage{graphicx,color,comment,url} 
+\usepackage{graphicx,color,comment,url, float} 
 
 \usepackage{amsmath,amssymb}
 
@@ -65,16 +65,17 @@ Holding $V$ fixed, each user row $U_{i:}$ solves a regularized least-squares nor
     V_{:j} = (\sum_{i:(i,j) \in O} U_{i:}^T U_{i:} + \lambda_2 I)^{-1} (\sum_{i:(i,j) \in O} X_{ij} U_{i:}^T)
 \end{equation}
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{figure/error_vs_als_updated.png}
+\caption{Testing Error versus ALS Updates with $k = 40$}
+\label{fig1}
+\end{figure}
+
 \underline{Task 2}. Report testing error versus $k$ in Figure \ref{fig2}. Pick five values of $k$ and 
 fix other configurations by yourself. 
 
-
-\begin{figure}[]
-\centering
-\includegraphics[width=.8\textwidth]{ }
-\caption{Testing Error versus ALS Updates with $k = \ldots$}
-\label{fig1}
-\end{figure}
 
 \begin{figure}[]
 \centering
