@@ -1,0 +1,110 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{CS4033/5033: Assignment 5}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+\textbf{Topic 1: Low-Rank Matrix Factorization}
+
+Implement low-rank matrix factorization 
+based on the alternate least square technique. 
+Evaluate the technique on a real-world user-movie 
+rating matrix. In this matrix, each row corresponds to a user and each column corresponds to a movie. Ratings take value in 
+\{1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5\}; you should 
+treat `0' entries in the matrix as (truly) missing ratings 
+and do not use it for either training or testing. 
+For convenience, we have separated the set of 
+observed ratings that should be used for training 
+(stored in `rate\_train.csv') from the set of 
+observed ratings that should be used for testing 
+(stored in `rate\_test.csv'). 
+
+\underline{Task 1}. 
+Learn a rank-$k$ factorization 
+of the rating matrix from the training set and 
+evaluate it on the testing set. Report testing error 
+versus the number of ALS updates in Figure \ref{fig1}. 
+Pick the value for $k$, $\lambda_1$, $\lambda_2$ and the maximum number of ALS updates by yourself. 
+
+Tip: you may round the predicted rates 
+(given by $UV$) to the nearest value in 
+\{1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5\} 
+to get a more meaningful prediction 
+and possibly higher prediction accuracy. 
+
+\underline{Task 2}. Report testing error versus $k$ in Figure \ref{fig2}. Pick five values of $k$ and 
+fix other configurations by yourself. 
+
+
+\begin{figure}[]
+\centering
+\includegraphics[width=.8\textwidth]{ }
+\caption{Testing Error versus ALS Updates with $k = \ldots$}
+\label{fig1}
+\end{figure}
+
+\begin{figure}[]
+\centering
+\includegraphics[width=.8\textwidth]{ }
+\caption{Testing Error versus $k$}
+\label{fig2}
+\end{figure}
+
+\textbf{Topic 2: Markov Model}
+
+Suppose we want to learn a Markov model, 
+and apply it to predict Sam's final grade 
+as A or B. Our training data are shown 
+in Figure \ref{fig3}. (The first row is 
+Sam's record. Do not use it for training.) 
+
+\underline{Task 3}. Assume 1st-order Markov 
+chain. Evaluate the probability for Sam to 
+get an A in the 5th semester. You need to 
+elaborate on the estimation of key probabilities 
+and the key formula such as Bayes theorem. 
+
+
+\underline{Task 4}. Assume 2nd-order Markov 
+chain. Evaluate the probability for Sam to 
+get an A in the 5th semester. You need to 
+elaborate on the estimation of key probabilities 
+and the key formula such as Bayes theorem. 
+
+\begin{figure}[]
+\centering
+\includegraphics[width=.7\textwidth]{figure/markov.PNG}
+\caption{}
+\label{fig3}
+\end{figure}
+
+\vfill 
+
+\underline{Submission Instruction}
+
+Please submit three files on Canvas. 
+
+(i) Submit a `hw5.pdf'. It should contain 
+your answers to all questions in this template. 
+
+(ii) Submit a `hw5\_als.py'. It should 
+be the code that generates Figure \ref{fig1}.
+
+(iii) Submit a `hw5\_k.py'. It should 
+be the code that generates Figure \ref{fig2}.
+
+\end{document}

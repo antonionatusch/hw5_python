@@ -1,0 +1,4 @@
+.spyproject
+build/*
+!build/*.pdf
+venv
