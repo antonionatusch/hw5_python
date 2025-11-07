@@ -8,8 +8,8 @@
 
 
 \title{CS4033/5033: Assignment 5}
-\author{Your Name}
-\institute{}
+\author{Antonio Natusch Zarco}
+\institute{The University of Oklahoma}
 
 \begin{document}
 
@@ -45,6 +45,25 @@ Tip: you may round the predicted rates
 \{1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5\} 
 to get a more meaningful prediction 
 and possibly higher prediction accuracy. 
+
+\underline{Task 1 - Solution}.
+
+We model the rating matrix $X$ as a low-rank product $X \approx UV$ with $U \in \mathbb{R}^{n \times k}$, $V \in \mathbb{R^{k \times m}}$.
+Let $O \subset \{1, \ldots, n\} \times \{1, \ldots, m\}$ be the set of observed (non-zero) entries in $X$. The ridge-regularized objective function is:
+
+\begin{equation}
+    \min_{U, V} \sum_{(i,j) \in O} (X_{ij} - U_{i:} V_{:j})^2 + \lambda_1 \lVert U \rVert_F^2 + \lambda_2 \lVert V \rVert_F^2
+\end{equation}
+
+Holding $V$ fixed, each user row $U_{i:}$ solves a regularized least-squares normal equation, and symmetrically for each movie column $V_{:j}$. We alternate these updates for a fixed number of iterations.
+
+\begin{equation}
+    U_{i:} = (\sum_{j:(i,j)\in O} X_{ij} V_{:j}^T)(\sum_{j:(i,j)\in O} V_{:j} V_{:j}^T + \lambda_1 I)^{-1}
+\end{equation},
+
+\begin{equation}
+    V_{:j} = (\sum_{i:(i,j) \in O} U_{i:}^T U_{i:} + \lambda_2 I)^{-1} (\sum_{i:(i,j) \in O} X_{ij} U_{i:}^T)
+\end{equation}
 
 \underline{Task 2}. Report testing error versus $k$ in Figure \ref{fig2}. Pick five values of $k$ and 
 fix other configurations by yourself. 
