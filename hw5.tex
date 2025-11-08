@@ -198,6 +198,43 @@ get an A in the 5th semester. You need to
 elaborate on the estimation of key probabilities 
 and the key formula such as Bayes theorem. 
 
+\underline{Task 4 - Solution}. Let $X_t \in \{A, B\}$ denote the grade in semester $t$. We model grades as a time-homogeneous second-order Markov chain:
+
+\begin{equation}
+    Pr(X_{t+1} = z \mid X_t = y, X_{t-1} = x) = \theta_{xy \rightarrow z}, \quad x,y,z \in \{A,B\}
+\end{equation}
+
+For Sam we need 
+
+\begin{equation}
+    Pr(X_5 = A \mid X_4 = B, X_3 = A) = \theta_{AB \rightarrow A}
+\end{equation}
+
+since Sam's history is $X_1 = B$, $X_2 = A$, $X_3 = A$, $X_4 = B$.
+
+[MLE of the 2nd-order transition]
+
+From the training rows only (X1-X8), form all adjacent triples
+$(X_t, X_{t+1}, X_{t+2})$ for $t=1,2,3$ in each row.
+
+For each context pair $(x,y)$, count 
+
+\begin{equation}
+    N_{xy \rightarrow z} = \#\{t : X_t = x, X_{t+1} = y, X_{t+2} = z\}, \quad N_{xy} = \sum_{z \in \{A,B\}} N_{xy \rightarrow z}
+\end{equation}
+
+The MLE is
+
+\begin{equation}
+    \hat{\theta}_{xy \rightarrow z} = \frac{N_{xy \rightarrow z}}{N_{xy}}
+\end{equation}
+
+Equivalently, by Bayes' rule,
+
+\begin{equation}
+    Pr(X_{t+2} = z \mid X_{t+1} = y, X_t = x) = \frac{Pr(x,y,z)}{Pr(x,y)} \approx \frac{N_{xy \rightarrow z}}{N_{xy}}
+\end{equation}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=.7\textwidth]{figure/markov.PNG}
