@@ -76,8 +76,8 @@ and possibly higher prediction accuracy.
 
 \underline{Task 1 - Solution}.
 
-We model the rating matrix $X$ as a low-rank product $X \approx UV$ with $U \in \mathbb{R}^{n \times k}$, $V \in \mathbb{R^{k \times m}}$.
-Let $O \subset \{1, \ldots, n\} \times \{1, \ldots, m\}$ be the set of observed (non-zero) entries in $X$. The ridge-regularized objective function is:
+We model the rating matrix $X$ as a low-rank product $X \approx UV$ with $U \in \mathbb{R}^{n \times k}$, $V \in \mathbb{R}^{k \times m}$.
+Let $O \subseteq \{1..n\} \times \{1..m\}$ be the set of observed (non-zero) entries in $X$. The ridge-regularized objective function is:
 
 \begin{equation}
     \min_{U, V} \sum_{(i,j) \in O} (X_{ij} - U_{i:} V_{:j})^2 + \lambda_1 \lVert U \rVert_F^2 + \lambda_2 \lVert V \rVert_F^2
@@ -111,6 +111,11 @@ fix other configurations by yourself.
 \caption{Testing Error versus $k$}
 \label{fig2}
 \end{figure}
+
+\mynote{
+\textbf{About RMSE computation}
+Test RMSE is computed only on user–item pairs seen in training (in our split there are no cold-start pairs), and predictions are rounded to the allowed rating set.
+}
 
 \newpage
 
