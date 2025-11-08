@@ -12,6 +12,12 @@ n_updates  = 30
 seed       = 42
 ROUND_PRED = True
 
+def seen_sets(entries):
+    su = {i for i,_,_ in entries}
+    si = {j for _,j,_ in entries}
+    return su, si
+
+
 def _first_line(path):
     with open(path, "r", encoding="utf-8") as f:
         return f.readline()
@@ -89,8 +95,15 @@ n_users, n_items = Xtr.shape
 train_entries = dense_to_entries(Xtr)
 test_entries  = dense_to_entries(Xte)
 
+seen_users, seen_items = seen_sets(train_entries)
+
 def evaluator(U, V, round_pred=False):
-    return rmse_on_entries(U, V, test_entries, round_pred=ROUND_PRED)
+    filt = [(i, j, r) for (i, j, r) in test_entries
+           if i in seen_users and j in seen_items]
+    if not filt:
+       return float("nan")
+   
+    return rmse_on_entries(U, V, filt, round_pred=ROUND_PRED)
 
 errs = []
 for k in k_values:
