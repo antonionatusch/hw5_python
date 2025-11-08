@@ -6,6 +6,34 @@
 
 \usepackage{amsmath,amssymb}
 
+\usepackage[most]{tcolorbox}
+\usepackage{tcolorbox}
+
+\makeatletter
+\NewDocumentCommand{\mynote}{+O{}+m}{%
+  \begingroup
+  \tcbset{%
+    noteshift/.store in=\mynote@shift,
+    noteshift=1.5cm
+  }
+  \begin{tcolorbox}[nobeforeafter,
+    enhanced,
+    sharp corners,
+    toprule=1pt,
+    bottomrule=1pt,
+    leftrule=0pt,
+    rightrule=0pt,
+    colback=yellow!20,
+    #1,
+    left skip=\mynote@shift,
+    right skip=\mynote@shift,
+    overlay={\node[right] (mynotenode) at ([xshift=-\mynote@shift]frame.west) {\textbf{Note:}} ;},
+    ]
+    #2
+  \end{tcolorbox}
+  \endgroup
+  }
+\makeatother
 
 \title{CS4033/5033: Assignment 5}
 \author{Antonio Natusch Zarco}
@@ -107,6 +135,60 @@ first-order Markov chain:
 \begin{equation}
     Pr(X_{t+1} = y | X_1, \ldots, X_t = x_t) = Pr(X_{t+1} = y | X_t = x_t) \equiv p_{x_t y}
 \end{equation}
+
+We need $Pr(X_5 = A \mid X_4 = B)$ for Sam.
+By the property this is exactly the transition probability
+$p_{BA}$
+
+Estimate $p_{xy}$ from the training rows (X1-X8 only) via
+MLE using bigram counts over adjacent semesters 
+$t \rightarrow t+1$ (for $t=1,2,3,4$):
+
+\begin{equation}
+    N_{xy} = \#\{t : X_t = x, X_{t+1} = y\}, \qquad N_x = \sum_{y \in \{A,B\}} N_{xy}, \qquad \hat{p}_{xy} = \frac{N_{xy}}{N_x}
+\end{equation}
+
+Equivalently, by Bayes' rule, 
+
+\begin{equation}
+    Pr(X_{t+1} = A \mid X_t = B) = \frac{Pr(X_{t+1} = A)}{Pr(X_t = B)} \approx \frac{N_{BA} \slash N}{N_B \slash N} = \frac{N_{BA}}{N_B}
+\end{equation}
+
+where $N = \sum_{x,y} N_{xy}$ is the total number of observed transitions; the common N 
+cancels.
+
+From the training data, (rows $X_1$ : $X_8$, not using Sam), counting all $B \rightarrow \cdot $
+transitions across the 4 semester steps gives
+
+\begin{equation}
+    N_{BA} = 6, \quad N_{BB} = 4, \quad N_B = 10
+\end{equation}
+
+Hence 
+
+\begin{equation}
+    Pr(X_5 = A \mid X_4 = B) = \hat{p}_{BA} = \frac{6}{10} = 0.6
+\end{equation}
+
+So, under a 1st-order, time-homogeneous Markov model, the estimated 
+probability that Sam gets an $A$ in the 5th semester (given $X_4 = B$) is 0.6.
+
+\mynote{
+\textbf{Estimate transition matrix}
+
+The estimated transition matrix is:
+\begin{equation}
+    \hat{P} = 
+    \begin{bmatrix}
+    \hat{p}_{AA} & \hat{p}_{AB} \\
+    \hat{p}_{BA} & \hat{p}_{BB}
+    \end{bmatrix} =
+    \begin{bmatrix}
+    0.5 & 0.5 \\
+    0.6 & 0.4
+    \end{bmatrix}
+\end{equation}
+}
 
 
 \underline{Task 4}. Assume 2nd-order Markov 
