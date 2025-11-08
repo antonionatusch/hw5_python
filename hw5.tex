@@ -235,6 +235,20 @@ Equivalently, by Bayes' rule,
     Pr(X_{t+2} = z \mid X_{t+1} = y, X_t = x) = \frac{Pr(x,y,z)}{Pr(x,y)} \approx \frac{N_{xy \rightarrow z}}{N_{xy}}
 \end{equation}
 
+[Counts for the needed context $(A,B)$]
+
+From the table (rows $X_1$ to $X_8$ only), the triples give 
+
+\begin{equation}
+    N_{AB \rightarrow A} = 6, \quad N_{AB \rightarrow B} = 3, \quad N_{AB} = 9
+\end{equation}
+
+Hence 
+
+\begin{equation}
+    Pr(X_5 = A \mid X_4 = B, X_3 = A) = \hat{\theta}_{AB \rightarrow A} = \frac{6}{9} = \frac{2}{3} \approx 0.6667
+\end{equation}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=.7\textwidth]{figure/markov.PNG}
